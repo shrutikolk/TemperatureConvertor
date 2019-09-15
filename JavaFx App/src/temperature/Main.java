@@ -1,3 +1,14 @@
+/**
+ * Class name: Main
+ * @version 1.8.0_221
+ * @author ShrutiSinha 
+ * @date 15 Sept 2019
+ * 
+ * Description:
+ * This Tool is used to convert Temperature in Celcius to Farenheit and vice versa.
+ * 
+ **/
+
 package temperature;
 
 import java.io.IOException;
@@ -10,84 +21,85 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.VBox;
 
-
-
+/*
+ * A class to start the program
+ */
 public class Main extends Application {
+    /*
+     * A method to launch the program
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void init() throws Exception {
+        super.init();
+    }
 	
-	public static void main(String[] args) {
-		launch(args);
-	}
-	
-	@Override
-	public void init() throws Exception
-	{
-		super.init();
-	}
-	
-	@Override 
-	public void start(Stage primaryStage)throws IOException
-	{
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("app_layout.fxml"));
-			VBox rootNode = loader.load();
+    /*
+     * Start of Java Application layout
+     */
+    @Override 
+    public void start(Stage primaryStage)throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("app_layout.fxml"));
+        VBox rootNode = loader.load();
 			
-			MenuBar menuBar = createMenu();
-			rootNode.getChildren().add(0,menuBar);		
+        MenuBar menuBar = createMenu();
+        rootNode.getChildren().add(0,menuBar);		
 			
-			Scene scene = new Scene(rootNode);
-			
-			primaryStage.setTitle("Temperature Convertor");
-			primaryStage.setScene(scene);
-			primaryStage.show();
-	}
+        Scene scene = new Scene(rootNode);
 	
-	private MenuBar createMenu()
-	{
-	    Menu fileMenu = new Menu ("File");
-	    MenuItem newMenuItem = new MenuItem("New");
+        primaryStage.setTitle("Temperature Convertor");//setting Title of the Application
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+	
+    /*
+     * method to create a Menu bar for the Application and set them to action
+     */
+    private MenuBar createMenu() {
+        Menu fileMenu = new Menu ("File");
 	    
-	    newMenuItem.setOnAction(event -> {System.out.println("New");});
-	    
-	    SeparatorMenuItem separator = new SeparatorMenuItem();
-	    MenuItem exitMenuItem = new MenuItem("Exit");
-	    
-	    exitMenuItem.setOnAction(event -> 
-	    {
-	    	Platform.exit();
+        MenuItem exitMenuItem = new MenuItem("Exit");	    
+        exitMenuItem.setOnAction(event -> {
+            Platform.exit();
 	    	System.exit(0);
-	    });
+        });
 	    
-	    fileMenu.getItems().addAll(newMenuItem,separator,exitMenuItem);
+        fileMenu.getItems().addAll(exitMenuItem);
 	    
-	    Menu helpMenu = new Menu ("Help");
-	    MenuItem aboutMenuItem = new MenuItem("About App");
+        Menu helpMenu = new Menu ("Help");
+        MenuItem aboutMenuItem = new MenuItem("About App");
+     
+        aboutMenuItem.setOnAction(event -> aboutApp());
 	    
-	    aboutMenuItem.setOnAction(event -> aboutApp());
+        helpMenu.getItems().addAll(aboutMenuItem);
 	    
-	    helpMenu.getItems().addAll(aboutMenuItem);
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().addAll(fileMenu,helpMenu);
 	    
-	    MenuBar menuBar = new MenuBar();
-	    menuBar.getMenus().addAll(fileMenu,helpMenu);
-	    
-	    return menuBar;
-	    
-	}
+        return menuBar;
+    }
 	
-	private void aboutApp()
-	{
-	    Alert alertbox = new Alert(Alert.AlertType.INFORMATION);
-	    alertbox.setTitle("About the App");
-	    alertbox.setHeaderText("Temperature Conversion");
-	    alertbox.setContentText("This Tool is used to convert Temperature in Celcius to Farenheit and vice versa.");
-	    alertbox.show();
-	    
-	}
+    /*
+     * method to display ALertBox to know about the Application
+     */
+    private void aboutApp() {
+        Alert alertbox = new Alert(Alert.AlertType.INFORMATION);
+        alertbox.setTitle("About the App");
+        alertbox.setHeaderText("Temperature Conversion");
+        alertbox.setContentText("This Tool is used to convert Temperature in Celcius to Farenheit and vice versa.");
+        alertbox.show();
+    }
 	
-	@Override
-	public void stop() throws Exception
-	{
-		super.stop();
-	}
-}
+    /*
+     * method to close the Application
+     */
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+    }
+}//end of Main class
